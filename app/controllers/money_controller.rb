@@ -28,7 +28,7 @@ class MoneyController < ApplicationController
     @money = Money.new(money_params)
     
       if @money.image
-        $moneyimage = @money.image
+        $moneyimage = @money
         binding.pry
         redirect_to action: 'file'
       else

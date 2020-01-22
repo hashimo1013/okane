@@ -1,3 +1,4 @@
-class Money < ApplicationRecord
+class Money < ActiveRecord::Base
+  mount_uploader :image, ImageUploader
   belongs_to :user
 end
