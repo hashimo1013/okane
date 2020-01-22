@@ -26,15 +26,14 @@ class MoneyController < ApplicationController
   # POST /money.json
   def create
     @money = Money.new(money_params)
-
-    respond_to do |format|
-      if @money.save
-        format.html { redirect_to @money, notice: 'Money was successfully created.' }
-        format.json { render :show, status: :created, location: @money }
-      else
-        format.html { render :new }
-        format.json { render json: @money.errors, status: :unprocessable_entity }
-      end
+      respond_to do |format|
+        if @money.save
+          format.html { redirect_to @money, notice: 'Money was successfully created.' }
+          format.json { render :show, status: :created, location: @money }
+        else
+          format.html { render :new }
+          format.json { render json: @money.errors, status: :unprocessable_entity }
+        end
     end
   end
 
