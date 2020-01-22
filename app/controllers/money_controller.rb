@@ -29,7 +29,6 @@ class MoneyController < ApplicationController
     
       if @money.image
         $moneyimage = @money
-        binding.pry
         redirect_to action: 'file'
       else
       respond_to do |format|
@@ -69,6 +68,62 @@ class MoneyController < ApplicationController
   end
 
   def file
+    require 'base64'
+require 'json'
+require 'net/https'
+
+image_file = "public#{$moneyimage.image.url}"
+# image_file = "app/assets/images/98994102fd19907905fbf84d8fc3fa88.png"
+# IMAGE_FILE = ARGV[0]
+
+api_key = ENV['GOOGLE_VISION_API_KEY']
+api_url = "https://vision.googleapis.com/v1/images:annotate?key=#{api_key}"
+# API_KEY = ENV['GOOGLE_VISION_API_KEY']
+# API_URL = "https://vision.googleapis.com/v1/images:annotate?key=#{API_KEY}"
+
+
+base64_image = Base64.strict_encode64(File.new(image_file, 'rb').read)
+# base64_image = Base64.strict_encode64(File.new(IMAGE_FILE, 'rb').read)
+
+body = {
+  requests: [{
+    image: {
+      content: base64_image
+    },
+    features: [
+      {
+        type: 'TEXT_DETECTION', #画像認識の分析方法を選択
+        maxResults: 1   # 出力したい結果の数
+      }
+    ]
+  }]
+}.to_json
+
+# 文字列のAPI_URLをURIオブジェクトに変換します。
+uri = URI.parse(api_url)   
+# uri = URI.parse(API_URL) 
+
+# httpではなく暗号化通信の施されたhttpsを用いる設定です。
+https = Net::HTTP.new(uri.host, uri.port)
+https.use_ssl = true
+
+# POSTリクエストを作成します
+request = Net::HTTP::Post.new(uri.request_uri)
+
+
+request["Content-Type"] = "application/json"
+response = https.request(request, body)
+
+
+# 返り値がJSON形式のため、JSONをrubyで扱えるように変換。
+response_rb = JSON.parse(response.body)
+
+
+
+
+@description = response_rb["responses"][0]["textAnnotations"][0]["description"]
+
+
   end
 
   private
