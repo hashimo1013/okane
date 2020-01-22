@@ -26,6 +26,12 @@ class MoneyController < ApplicationController
   # POST /money.json
   def create
     @money = Money.new(money_params)
+    
+      if @money.image
+        $moneyimage = @money.image
+        binding.pry
+        redirect_to action: 'file'
+      else
       respond_to do |format|
         if @money.save
           format.html { redirect_to @money, notice: 'Money was successfully created.' }
@@ -34,6 +40,7 @@ class MoneyController < ApplicationController
           format.html { render :new }
           format.json { render json: @money.errors, status: :unprocessable_entity }
         end
+      end
     end
   end
 
@@ -61,6 +68,9 @@ class MoneyController < ApplicationController
     end
   end
 
+  def file
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_money
@@ -69,7 +79,7 @@ class MoneyController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def money_params
-      params.require(:money).permit(:expenses).merge(user_id:current_user.id)
+      params.require(:money).permit(:expenses, :image).merge(user_id:current_user.id)
     end
 
     def total_expenses
