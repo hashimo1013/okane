@@ -1,85 +1,53 @@
-<p id="notice"><%= notice %></p>
 <div class = "wrapper">
-<div class = "header">
-  <%= link_to new_money_path, class: "input__btn" do %>
-  <div class = "input">登 録</div>
-  <% end %>
-</div>
-
-
-<div class = "contents">
-  <div class = "month">
-  <div class = "month__top">
-    <div class = "month__top__title">
-     今月の支出
+<%# 
+  <div class = "header">
+    <div class = "header__text">
+      今月
     </div>
-    <div class = "month__top__sum">
-      <%= @this_month_sum %>
+  </div> %>
+
+
+  <div class = "left_bar">
+    <div class = "left_bar__head">
+    今月分
     </div>
-  </div>
-  <div class = "month__index">
-   <div class = "month_index__text">支出明細</div>
-  </div>
-  <div class = "month__data">
-    <table>
-      <thead>
-        <tr class = "table">
-          <th colspan="1">支出</th>
-          <th colspan="4">日付</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @this_month_data.each do |money| %>
-        <tr>
-          <td class = "month__data__expenses"><%= money.expenses %></td>
-          <td><%= money.created_at.strftime("%Y年%m月%d日 %H時%M分")%></td>
-          <td><%= money.tag.tag %></td>
-          <td><%= link_to 'Edit', edit_money_path(money) %></td>
-          <td><%= link_to 'Destroy', money, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-
-<div class = "month">
-  <div class = "month__top">
-    <div class = "month__top__title">
-     先月の支出
+    <div class = "left_bar__sum">
+      <div class = "left_bar__sum__chara">
+        総支出
+      </div>
+      <div class = "left_bar__sum__number">
+        <%= @prevent_month_sum %>円
+      </div>
     </div>
-    <div class = "month__top__sum">
-      <%= @prevent_month_sum %>
+    <div class = "left_bar__data">
+      <table>
+        <tbody>
+          <% @this_month_data.each do |money| %>
+          <tr class = "record">
+            <td class = "expenses"><%= money.expenses %></td>
+            <td><%= money.created_at.strftime("%d日")%></td>
+            <td><%= money.tag.tag %></td>
+            <td><%= link_to 'Destroy', money, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
     </div>
   </div>
-  <div class = "month__index">
-   <div class = "month_index__text">支出明細</div>
-  </div>
-  <div class = "month__data">
-    <table>
-      <thead>
-        <tr class = "table">
-          <th colspan="1">支出</th>
-          <th colspan="4">日付</th>
-        </tr>
-      </thead>
 
-      <tbody>
-        <% @prevent_month_data.each do |money| %>
-        <tr>
-          <td class = "month__data__expenses"><%= money.expenses %></td>
-          <td><%= money.created_at.strftime("%Y年%m月%d日 %H時%M分")%></td>
-          <td><%= link_to 'Edit', edit_money_path(money) %></td>
-          <td><%= link_to 'Destroy', money, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class = "right_bar">
+    <div class = "right_bar__prevent_month">
+      <div class = "right_bar__prevent_month__titile">
+        先月の支出
+      </div>
+      <div class = "right_bar__prevent_month__sum">
+        <%= @prevent_month_sum %>
+      </div>      
+    </div>
+    <div class = "right_bar__tag">
+      tag
+    </div>
   </div>
-</div>
-</div>
-</div>
-<%= link_to 'New Money', new_money_path %>
 
+</div>
