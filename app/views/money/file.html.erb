@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 <p> がぞーとーこー</p>
 <p> <%= image_tag $moneyimage.image.url %> </p>
+<%= @num %>
+<br>
 <%= @description %>
+<%= render 'form', money: @money %>
+
 <%= link_to 'Back', money_index_path %>

@@ -1,34 +1,27 @@
 class MoneyController < ApplicationController
   before_action :set_money, only: [:show, :edit, :update, :destroy]
 
-  # GET /money
-  # GET /money.json
   def index
     @money = current_user.moneys
-    @sum = total_expenses
+    this_month_expenses
+    prevent_month_expenses
   end
 
-  # GET /money/1
-  # GET /money/1.json
   def show
   end
 
-  # GET /money/new
   def new
     @money = Money.new
   end
 
-  # GET /money/1/edit
   def edit
   end
 
-  # POST /money
-  # POST /money.json
   def create
     @money = Money.new(money_params)
-    
-      if @money.image
+      if @money.image.present?
         $moneyimage = @money
+        
         redirect_to action: 'file'
       else
       respond_to do |format|
@@ -43,8 +36,6 @@ class MoneyController < ApplicationController
     end
   end
 
-  # PATCH/PUT /money/1
-  # PATCH/PUT /money/1.json
   def update
     respond_to do |format|
       if @money.update(money_params)
@@ -57,8 +48,6 @@ class MoneyController < ApplicationController
     end
   end
 
-  # DELETE /money/1
-  # DELETE /money/1.json
   def destroy
     @money.destroy
     respond_to do |format|
@@ -67,72 +56,55 @@ class MoneyController < ApplicationController
     end
   end
 
+
   def file
     require 'base64'
-require 'json'
-require 'net/https'
+    require 'json'
+    require 'net/https'
 
-image_file = "public#{$moneyimage.image.url}"
-# image_file = "app/assets/images/98994102fd19907905fbf84d8fc3fa88.png"
-# IMAGE_FILE = ARGV[0]
+    image_file = "public#{$moneyimage.image.url}"
+    api_key = ENV['GOOGLE_VISION_API_KEY']
+    api_url = "https://vision.googleapis.com/v1/images:annotate?key=#{api_key}"
+    base64_image = Base64.strict_encode64(File.new(image_file, 'rb').read)
 
-api_key = ENV['GOOGLE_VISION_API_KEY']
-api_url = "https://vision.googleapis.com/v1/images:annotate?key=#{api_key}"
-# API_KEY = ENV['GOOGLE_VISION_API_KEY']
-# API_URL = "https://vision.googleapis.com/v1/images:annotate?key=#{API_KEY}"
+    body = {
+    requests: [{
+      image: {
+        content: base64_image
+      },
+      features: [
+        {
+          type: 'DOCUMENT_TEXT_DETECTION', 
+          maxResults: 1
+        }
+      ]
+    }]
+    }.to_json
 
+    uri = URI.parse(api_url)
 
-base64_image = Base64.strict_encode64(File.new(image_file, 'rb').read)
-# base64_image = Base64.strict_encode64(File.new(IMAGE_FILE, 'rb').read)
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
 
-body = {
-  requests: [{
-    image: {
-      content: base64_image
-    },
-    features: [
-      {
-        type: 'TEXT_DETECTION', #画像認識の分析方法を選択
-        maxResults: 1   # 出力したい結果の数
-      }
-    ]
-  }]
-}.to_json
+    request = Net::HTTP::Post.new(uri.request_uri)
 
-# 文字列のAPI_URLをURIオブジェクトに変換します。
-uri = URI.parse(api_url)   
-# uri = URI.parse(API_URL) 
-
-# httpではなく暗号化通信の施されたhttpsを用いる設定です。
-https = Net::HTTP.new(uri.host, uri.port)
-https.use_ssl = true
-
-# POSTリクエストを作成します
-request = Net::HTTP::Post.new(uri.request_uri)
-
-
-request["Content-Type"] = "application/json"
-response = https.request(request, body)
-
-
-# 返り値がJSON形式のため、JSONをrubyで扱えるように変換。
-response_rb = JSON.parse(response.body)
-
-
-
-
-@description = response_rb["responses"][0]["textAnnotations"][0]["description"]
-
-
+    request["Content-Type"] = "application/json"
+    response = https.request(request, body)
+    @response_rb = JSON.parse(response.body)
+    @description = @response_rb["responses"][0]["textAnnotations"][0]["description"]
+    str = @description.match(/合計\d*\D*(\d\D*\d*)/)
+    num = str[1]
+    num1 = num.gsub(/(\d{0,3}),(\d{3})/, '\1\2')
+    @num = num1.to_i
+    @money = Money.new
+    @money.expenses = @num
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_money
       @money = Money.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def money_params
       params.require(:money).permit(:expenses, :image).merge(user_id:current_user.id)
     end
@@ -143,5 +115,27 @@ response_rb = JSON.parse(response.body)
         sum += money.expenses
       end
         return sum
+    end
+
+    def this_month_expenses
+      @this_month_data = []
+      @this_month_sum = 0
+      this_month = Date.today.all_month # all_monthをDate.todayに適用すると、今月の年月日データを取得できる。
+      @money.each do |money| 
+        if (this_month.include?(Date.parse(money[:created_at].to_s)))
+          # 今月の日にちの中にhoge[:created_at]の年月日が含まれていれば、trueを返す。
+          @this_month_data << money
+          @this_month_sum += money.expenses
+        end
+      end
+    end
+
+    def prevent_month_expenses
+      @prevent_month_data = []
+      @prevent_month_sum = 0
+      @prevent_month_data = @money.where(created_at: Time.now.prev_month.beginning_of_month..Time.now.prev_month.end_of_month)
+      @prevent_month_data.each do |money|
+        @prevent_month_sum += money.expenses
+      end
     end
 end
