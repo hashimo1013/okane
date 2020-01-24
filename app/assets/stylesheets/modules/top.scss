@@ -1,9 +1,15 @@
 * {
   box-sizing: border-box;
 }
+.wrapper {
+  background-image: image-url("1fb579d4cca3111e48047a005363bbbc_s");
+  background-size: 120%;
+  width: 100%;
+}
+
 .header {
   width: 100%;
-  background-color: rgb(177, 255, 210);
+  // background-color: rgb(177, 255, 210);
   display:flex;
   justify-content: center;
   .input {
@@ -21,10 +27,11 @@
 .contents {
   display: flex;
   width: 100%;
+  
 }
 .month {
   width: 50%;
-  background-color: rgb(255, 163, 255);
+  // background-color: rgb(255, 163, 255);
   &__top {
     width: 100%;
     display:flex;
@@ -53,14 +60,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(93, 204, 255);
+    // background-color: rgb(93, 204, 255);
     // text-align: center;
     
   }
   &__data {
     font-size: 15px;
     border: solid 1px;
-    background-color: rgb(235, 235, 235);
+    // background-color: white;
     &__expenses {
       font-size: 20px;
       border-right: solid 1px;

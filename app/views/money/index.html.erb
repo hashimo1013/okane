@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<div class = "wrapper">
 <div class = "header">
   <%= link_to new_money_path, class: "input__btn" do %>
   <div class = "input">登 録</div>
@@ -33,6 +34,7 @@
         <tr>
           <td class = "month__data__expenses"><%= money.expenses %></td>
           <td><%= money.created_at.strftime("%Y年%m月%d日 %H時%M分")%></td>
+          <td><%= money.tag.tag %></td>
           <td><%= link_to 'Edit', edit_money_path(money) %></td>
           <td><%= link_to 'Destroy', money, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
@@ -78,6 +80,6 @@
   </div>
 </div>
 </div>
-
+</div>
 <%= link_to 'New Money', new_money_path %>
 

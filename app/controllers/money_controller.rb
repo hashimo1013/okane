@@ -5,6 +5,7 @@ class MoneyController < ApplicationController
     @money = current_user.moneys
     this_month_expenses
     prevent_month_expenses
+    @tags = Tag.all
   end
 
   def show
