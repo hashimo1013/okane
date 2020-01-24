@@ -106,7 +106,7 @@ class MoneyController < ApplicationController
     end
 
     def money_params
-      params.require(:money).permit(:expenses, :image).merge(user_id:current_user.id)
+      params.require(:money).permit(:expenses, :image, :tag_id).merge(user_id:current_user.id)
     end
 
     def total_expenses

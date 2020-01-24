@@ -10,8 +10,12 @@
       </ul>
     </div>
   <% end %>
+  <div class = "tags">
+  <%= form.collection_select :tag_id, Tag.all, :id, :tag %>
+  </div>
   <div class = "input">
     <%= form.number_field :expenses %>
+  </div>
   <div class="actions">
     <%= form.submit %>
   </div>
