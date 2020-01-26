@@ -1,15 +1,14 @@
 <div class = "wrapper">
-<%# 
-  <div class = "header">
-    <div class = "header__text">
-      今月
-    </div>
-  </div> %>
-
-
   <div class = "left_bar">
     <div class = "left_bar__head">
-    今月分
+      <div class ="left_bar__head__month">
+        今月分
+      </div>
+      <div class = "left_bar__head__btn">
+        <%= link_to "登録はコチラ", new_money_path %>
+          <%# <div class = "left_bar__head_btn__text">登録はコチラ</div> %>
+        
+      </div>
     </div>
     <div class = "left_bar__sum">
       <div class = "left_bar__sum__chara">
@@ -27,7 +26,7 @@
             <td class = "expenses"><%= money.expenses %></td>
             <td><%= money.created_at.strftime("%d日")%></td>
             <td><%= money.tag.tag %></td>
-            <td><%= link_to 'Destroy', money, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Destroy', money, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
           </tr>
           <% end %>
         </tbody>
@@ -37,16 +36,18 @@
   </div>
 
   <div class = "right_bar">
+    <div class = "right_bar__input">
+    </div>
     <div class = "right_bar__prevent_month">
-      <div class = "right_bar__prevent_month__titile">
+      <div class = "right_bar__prevent_month__title">
         先月の支出
       </div>
       <div class = "right_bar__prevent_month__sum">
-        <%= @prevent_month_sum %>
+        <%= @prevent_month_sum %>円
       </div>      
     </div>
     <div class = "right_bar__tag">
-      tag
+      <%= pie_chart @pie, width: "280px", height: "280px"%>
     </div>
   </div>
 

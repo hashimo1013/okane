@@ -1,9 +1,32 @@
 <p id="notice"><%= notice %></p>
-<p> がぞーとーこー</p>
-<p> <%= image_tag $moneyimage.image.url %> </p>
-<%= @num %>
-<br>
-<%= @description %>
+<div class = "result">
+  <div class = "result__message">
+    <div class = "result__message__box">
+      解析結果
+    </div>
+  </div>
+  <div class = "result__sum">
+    <div class = "result__sum__chara">
+      合計金額は・・・
+    </div>
+    <div class = "result__sum__number">
+      <%= @num %>
+    </div>
+  </div>
+  <div class = "result__detail">
+    <div class = "result__detail__box">
+      詳細
+    </div>
+  </div>
+  <div class = "result__index">
+    <div class = "result__index__image">
+      <p> <%= image_tag $moneyimage.image.url, size:"320x320" %> </p>
+    </div>
+    <div class = "result__index__box">
+      <%= @description %>
+    </div>
+  </div>
+</div>
+
 <%= render 'form', money: @money %>
 
-<%= link_to 'Back', money_index_path %>

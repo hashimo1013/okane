@@ -10,16 +10,58 @@
       </ul>
     </div>
   <% end %>
-  <div class = "tags">
-  <%= form.collection_select :tag_id, Tag.all, :id, :tag %>
+
+<div class = "form">
+  <div class = "form__radio">
+    <label>
+    <%= form.radio_button :tag_id, 1, class: "radio_btn", id: "tag1", checked: true %>
+    <div class = "text">食費</div>
+     <div class = "form__radio__1">
+    </div></label>
+    <label>
+    <%= form.radio_button :tag_id, 2, class: "radio_btn", id: "tag2" %>
+    <div class = "text">日用品</div>
+    <div class = "form__radio__2">
+    </div></label>
+    <label>
+    <%= form.radio_button :tag_id, 3, class: "radio_btn", id: "tag3" %>
+    <div class = "text">交際費</div>
+    <div class = "form__radio__3">
+    </div></label>
+    <label>
+    <%= form.radio_button :tag_id, 4, class: "radio_btn", id: "tag4" %>
+    <div class = "text">趣味</div>
+    <div class = "form__radio__4">
+    </div></label>
+    <label>
+    <%= form.radio_button :tag_id, 5, class: "radio_btn", id: "tag5" %>
+    <div class = "text">雑費</div>
+    <div class = "form__radio__5">
+    </div></label>
   </div>
+
   <div class = "input">
-    <%= form.number_field :expenses %>
+    <div class = "input__expenses">
+      <%= form.number_field :expenses, placeholder: "金額は？" %>
+    </div>
+    <div class="input__actions">
+      <%= form.submit "登録" , class: "input__actions__submit" %>
+    </div>
+
+
+    <div class = "input__file">
+      <label>
+      <%= form.file_field :image %>
+      <div class="buttonArea" id='makeImg' >
+        画像解析するならコッチ！
+        <div>ファイルを選択</div>
+      </div></label>
+    </div>
+
+    <div class="input__actions">
+      <%= form.submit "解析開始" , class: "input__actions__submit" %>
+    </div>
   </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-  <div class = "file">
-    <%= form.file_field :image %>
-  </div>
+</div>
 <% end %>
+<div><%= link_to 'Back', money_index_path %></div>

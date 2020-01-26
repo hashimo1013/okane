@@ -5,7 +5,8 @@ class MoneyController < ApplicationController
     @money = current_user.moneys
     this_month_expenses
     prevent_month_expenses
-    @tags = Tag.all
+    tag_sum
+    @pie = {"#{Tag.find(1).tag}" => @tag1, "#{Tag.find(2).tag}" => @tag2, "#{Tag.find(3).tag}" => @tag3, "#{Tag.find(4).tag}" => @tag4, "#{Tag.find(5).tag}" => @tag5}
   end
 
   def show
@@ -27,7 +28,7 @@ class MoneyController < ApplicationController
       else
       respond_to do |format|
         if @money.save
-          format.html { redirect_to @money, notice: 'Money was successfully created.' }
+          format.html { redirect_to money_index_url, notice: ' 登録しました。' }
           format.json { render :show, status: :created, location: @money }
         else
           format.html { render :new }
@@ -52,7 +53,7 @@ class MoneyController < ApplicationController
   def destroy
     @money.destroy
     respond_to do |format|
-      format.html { redirect_to money_index_url, notice: 'Money was successfully destroyed.' }
+      format.html { redirect_to money_index_url, notice: '削除しました.' }
       format.json { head :no_content }
     end
   end
@@ -139,4 +140,28 @@ class MoneyController < ApplicationController
         @prevent_month_sum += money.expenses
       end
     end
+
+    def tag_sum
+      tag1,tag2,tag3,tag4,tag5 = 0, 0, 0, 0, 0
+      @money.each do |money|
+        if money.tag_id == 1 
+          tag1 += money.expenses
+        elsif money.tag_id == 2
+          tag2 += money.expenses
+        elsif money.tag_id == 3
+          tag3 += money.expenses
+        elsif money.tag_id == 4
+          tag4 += money.expenses
+        else 
+          tag5 += money.expenses
+        end
+      end
+      tag_sum = tag1 + tag2 + tag3 + tag4 + tag5
+      @tag1 = (tag1 * 1000)/tag_sum
+      @tag2 = (tag2 * 1000)/tag_sum
+      @tag3 = (tag3 * 1000)/tag_sum
+      @tag4 = (tag4 * 1000)/tag_sum
+      @tag5 = (tag5 * 1000)/tag_sum
+    end
+
 end

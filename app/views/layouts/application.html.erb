@@ -4,18 +4,14 @@
     <title>Okane</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <h1>
-        ログイン中
-      </h1>
-      <%= link_to 'New Money', new_money_path %>
-    <% end %>
+    
     <%= yield %>
   </body>
 </html>

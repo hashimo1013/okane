@@ -1,0 +1,136 @@
+.form {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-image: image-url("bunbougu_kokuban");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  &__radio {
+    height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    color: #fff;
+    &__1 {
+      width: 150px;
+      height: 90%;
+      background-image: image-url("building_food_steak");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    &__2 {
+      width: 150px;
+      height: 90%;
+      background-image: image-url("sentaku_senzai");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    &__3 {
+      width: 150px;
+      height: 90%;
+      background-image: image-url("nomikai_salaryman");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    &__4 {
+      width: 150px;
+      height: 90%;
+      background-image: image-url("game_kakin_woman");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    &__5 {
+      width: 150px;
+      height: 90%;
+      background-image: image-url("tabako_kyukei");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+}
+.radio_btn {
+  display: none;
+}
+
+.text {
+  margin-left: 30px;
+}
+.radio_btn:checked + div + div{
+  color: #fff;
+  background-color: rgb(250, 107, 107);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.input {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  &__expenses {
+    margin-left: 30px;
+    font-size: 30px;
+  }
+  &__actions {
+    &__submit {
+      display       : inline-block;
+      border-radius : 20%;
+      font-size     : 15pt;
+      text-align    : center;
+      cursor        : pointer;
+      padding       : 15px 20px;
+      background    : rgba(0, 0, 102, 0.76);
+      color         : #ffffff;
+      line-height   : 1em;
+      transition    : .3s;
+      box-shadow    : 6px 6px 16px #666666;
+      border        : 2px solid rgba(0, 0, 102, 0.76);
+      &:hover {
+        box-shadow    : none;
+        color         : rgba(0, 0, 102, 0.76);
+        background    : #ffffff;
+      }
+    }
+  }
+  &__file {
+  
+  }
+}
+#money_image {
+  display: none;
+}
+.buttonArea {
+  width: 300px;
+  height: 60px;
+  font-size: 20px;
+  position      : relative;
+  display       : inline-block;
+  border        : 2px solid  #ff9384; /* 全体に枠を付ける     */
+  background    : #ff9384;           /* 背景を枠色と合わせる */
+  overflow      : hidden;            /* はみ出し範囲は非表示 */
+  cursor        : pointer;           /* カーソル形状         */
+  border-radius : 5px;               /* 角丸                 */
+}
+/* --- 親要素にマウスオーバー時に文字を表示する ------------ */
+.buttonArea:hover > div {
+  left          : 0;                 /* 親要素の左端に移動   */
+  bottom        : 0;                 /* 親要素の下端に移動   */
+}
+/* --- マウスオーバー時に表示される文字の要素 -------------- */
+.buttonArea > div {
+  position      : absolute;
+  left          : -100%;             /* 見えない左に移動     */
+  bottom        : 0;                 /* 親要素の下に合わせる */
+  transition    : .5s;               /* 変化時間             */
+
+  box-sizing    : border-box;        /* 余白・罫線を含める   */
+  width         : 100%;              /* 親要素の幅に合わせる */
+  height        : 60px;              /* 文字要素の高さ       */
+  color         : red;               /* 文字色               */
+  background    : #fff;              /* 背景色               */
+  text-align    : center;            /* 文字位置             */
+  font-size     : 20px;              /* 文字サイズ           */
+  font-weight   : bold;              /* 太字                 */
+  line-height   : 1.2;               /* 1行の高さ            */
+  padding-top   : 8px;
+}
