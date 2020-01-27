@@ -93,16 +93,20 @@ class MoneyController < ApplicationController
     request["Content-Type"] = "application/json"
     response = https.request(request, body)
     @response_rb = JSON.parse(response.body)
-    @description = @response_rb["responses"][0]["textAnnotations"][0]["description"]
-    str = @description.match(/合計\d*\D*(\d\D*\d*)/)
-    if str.nil?
-      redirect_to new_money_path, notice: ' 解析に失敗しました。他の画像で試してください。' 
+    if @response_rb["error"].present?
+      redirect_to new_money_path, notice: ' GOOGLEさんに画像認識を拒否られました。管理者に連絡してください。' 
     else
-    num = str[1]
-    num1 = num.gsub(/(\d{0,3}),(\d{3})/, '\1\2')
-    @num = num1.to_i
-    @money = Money.new
-    @money.expenses = @num
+      @description = @response_rb["responses"][0]["textAnnotations"][0]["description"]
+      str = @description.match(/合計\d*\D*(\d\D*\d*)/)
+      if str.nil?
+        redirect_to new_money_path, notice: ' 解析に失敗しました。他の画像で試してください。' 
+      else
+      num = str[1]
+      num1 = num.gsub(/(\d{0,3}),(\d{3})/, '\1\2')
+      @num = num1.to_i
+      @money = Money.new
+      @money.expenses = @num
+      end
     end
   end
 
