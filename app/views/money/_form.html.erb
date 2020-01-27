@@ -1,7 +1,7 @@
 <%= form_with(model: money, local: true) do |form| %>
   <% if money.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(money.errors.count, "error") %> prohibited this money from being saved:</h2>
+      <h2><%= pluralize(money.errors.count, "件の") %> エラー発生！</h2>
 
       <ul>
       <% money.errors.full_messages.each do |message| %>

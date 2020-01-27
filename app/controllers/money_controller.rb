@@ -95,11 +95,15 @@ class MoneyController < ApplicationController
     @response_rb = JSON.parse(response.body)
     @description = @response_rb["responses"][0]["textAnnotations"][0]["description"]
     str = @description.match(/合計\d*\D*(\d\D*\d*)/)
+    if str.nil?
+      redirect_to new_money_path, notice: ' 解析に失敗しました。他の画像で試してください。' 
+    else
     num = str[1]
     num1 = num.gsub(/(\d{0,3}),(\d{3})/, '\1\2')
     @num = num1.to_i
     @money = Money.new
     @money.expenses = @num
+    end
   end
 
   private
@@ -137,7 +141,7 @@ class MoneyController < ApplicationController
       @prevent_month_sum = 0
       @prevent_month_data = @money.where(created_at: Time.now.prev_month.beginning_of_month..Time.now.prev_month.end_of_month)
       @prevent_month_data.each do |money|
-        @prevent_month_sum += money.expenses
+      @prevent_month_sum += money.expenses
       end
     end
 
