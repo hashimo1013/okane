@@ -13,7 +13,7 @@
         総支出
       </div>
       <div class = "left_bar__sum__number">
-        <%= @prevent_month_sum %>円
+        <%= @this_month_sum.to_s(:delimited) %>円
       </div>
     </div>
     <div class = "left_bar__data">
@@ -41,7 +41,7 @@
         先月の支出
       </div>
       <div class = "right_bar__prevent_month__sum">
-        <%= @prevent_month_sum %>円
+        <%= @prevent_month_sum.to_s(:delimited) %>円
       </div>      
     </div>
     <div class = "right_bar__tag">

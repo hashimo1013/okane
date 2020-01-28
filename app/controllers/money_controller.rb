@@ -2,10 +2,9 @@ class MoneyController < ApplicationController
   before_action :set_money, only: [:show, :edit, :update, :destroy]
 
   def index
-    @money = current_user.moneys
+    @money = current_user.moneys.includes(:tag).order("created_at DESC")
     this_month_expenses
     prevent_month_expenses
-    tag_sum
     @pie = {"#{Tag.find(1).tag}" => @tag1, "#{Tag.find(2).tag}" => @tag2, "#{Tag.find(3).tag}" => @tag3, "#{Tag.find(4).tag}" => @tag4, "#{Tag.find(5).tag}" => @tag5}
   end
 
@@ -130,14 +129,32 @@ class MoneyController < ApplicationController
     def this_month_expenses
       @this_month_data = []
       @this_month_sum = 0
+      tag1,tag2,tag3,tag4,tag5 = 0, 0, 0, 0, 0
       this_month = Date.today.all_month # all_monthをDate.todayに適用すると、今月の年月日データを取得できる。
       @money.each do |money| 
         if (this_month.include?(Date.parse(money[:created_at].to_s)))
           # 今月の日にちの中にhoge[:created_at]の年月日が含まれていれば、trueを返す。
           @this_month_data << money
           @this_month_sum += money.expenses
+          if money.tag_id == 1 
+            tag1 += money.expenses
+          elsif money.tag_id == 2
+            tag2 += money.expenses
+          elsif money.tag_id == 3
+            tag3 += money.expenses
+          elsif money.tag_id == 4
+            tag4 += money.expenses
+          else 
+            tag5 += money.expenses
+          end
         end
       end
+      tag_sum = tag1 + tag2 + tag3 + tag4 + tag5
+      @tag1 = (tag1 * 100)/tag_sum
+      @tag2 = (tag2 * 100)/tag_sum
+      @tag3 = (tag3 * 100)/tag_sum
+      @tag4 = (tag4 * 100)/tag_sum
+      @tag5 = (tag5 * 100)/tag_sum
     end
 
     def prevent_month_expenses
@@ -165,11 +182,11 @@ class MoneyController < ApplicationController
         end
       end
       tag_sum = tag1 + tag2 + tag3 + tag4 + tag5
-      @tag1 = (tag1 * 1000)/tag_sum
-      @tag2 = (tag2 * 1000)/tag_sum
-      @tag3 = (tag3 * 1000)/tag_sum
-      @tag4 = (tag4 * 1000)/tag_sum
-      @tag5 = (tag5 * 1000)/tag_sum
+      @tag1 = (tag1 * 100)/tag_sum
+      @tag2 = (tag2 * 100)/tag_sum
+      @tag3 = (tag3 * 100)/tag_sum
+      @tag4 = (tag4 * 100)/tag_sum
+      @tag5 = (tag5 * 100)/tag_sum
     end
 
 end
