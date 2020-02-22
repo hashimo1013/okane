@@ -150,11 +150,13 @@ class MoneyController < ApplicationController
         end
       end
       tag_sum = tag1 + tag2 + tag3 + tag4 + tag5
-      @tag1 = (tag1 * 100)/tag_sum
-      @tag2 = (tag2 * 100)/tag_sum
-      @tag3 = (tag3 * 100)/tag_sum
-      @tag4 = (tag4 * 100)/tag_sum
-      @tag5 = (tag5 * 100)/tag_sum
+      unless tag_sum == 0
+        @tag1 = (tag1 * 100)/tag_sum
+        @tag2 = (tag2 * 100)/tag_sum
+        @tag3 = (tag3 * 100)/tag_sum
+        @tag4 = (tag4 * 100)/tag_sum
+        @tag5 = (tag5 * 100)/tag_sum
+      end
     end
 
     def prevent_month_expenses
