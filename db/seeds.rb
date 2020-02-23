@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+[
+  '食費','日用品','交際費','趣味','雑費'
+].each do |tag|
+  Tag.create!(
+    { tag: tag}
+  )
+end
