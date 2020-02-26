@@ -64,7 +64,7 @@ class MoneyController < ApplicationController
     require 'net/https'
 
     image_file = "public#{$moneyimage.image.url}"
-    api_key = ENV['GOOGLE_VISION_API_KEY']
+    api_key = Rails.application.credentials.GOOGLE_VISION_API_KEY
     api_url = "https://vision.googleapis.com/v1/images:annotate?key=#{api_key}"
     base64_image = Base64.strict_encode64(File.new(image_file, 'rb').read)
 
