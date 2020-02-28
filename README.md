@@ -1,7 +1,6 @@
 # README
 
-# Name
-Sumpick
+# Sumpick
 
 # Overview
 支出を登録することができる
