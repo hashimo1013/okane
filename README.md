@@ -1,7 +1,6 @@
 # README
 
 # Name
-====
 Sumpick
 
 # Overview
