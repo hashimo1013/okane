@@ -1,10 +1,10 @@
 # README
 
-Name
+# Name
 ====
 Sumpick
 
-Overview
+# Overview
 支出を登録することができる
 毎月の支出を管理することができる
 支出を費目ごとに割合で把握することができる
