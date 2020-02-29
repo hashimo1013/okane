@@ -34,7 +34,6 @@
   width: 1440px;
   height: 790px;
   display: flex;
-  overflow: scroll;
 }
 table {
   border-collapse: separate;
@@ -67,10 +66,20 @@ table {
       font-size: 25px;
       display: flex;
       &__image {
-        width: 50px;
-        height: 50px;
-        background-image: image-url("player_button_blue08_plus");
-        background-size: 100%;
+        display: inline-block;
+        padding: 0.4em 1.6em;
+        font-size: 0.8em;
+        color: #fff;
+        text-decoration: none;
+        user-select: none;
+        background: #00b5ad;
+        border: 1px #00b5ad solid;
+        border-radius: 3px;
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+        transition: 0.2s ease;
+      }
+      &__image:hover {
+        box-shadow: 0 6px 9px 0 rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
       }
     }
   }
