@@ -1,7 +1,7 @@
 # README
 
 # Sumpick
-
+![DEMO](https://github.com/hashimo1013/okane/blob/media/app/assets/gif/demo.gif)
 # Overview
 支出を登録することができる
 毎月の支出を管理することができる
