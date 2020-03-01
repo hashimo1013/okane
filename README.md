@@ -1,17 +1,17 @@
 # Sum Pick
 ![DEMO](https://github.com/hashimo1013/okane/blob/media/app/assets/gif/demo.gif)
 
-# Overview
-支出を登録することができる
-毎月の支出を管理することができる
-支出を費目ごとに割合で把握することができる
-レシートを投稿することでレシートから合計金額だけを抜くことができる
-
 ## 🌐 App URL
 ### **https://hashimonookane1.herokuapp.com/**
+
+# 簡単な説明
+支出を登録することができます。  
+毎月の支出の合計や費目ごとの割合でを把握することができます。  
+レシートの画像を投稿すると、画像から合計金額だけを抜くことができます。  
+是非、遊んでみてください。  
+
 ## Description
 
-## Demo
 
 ## VS. 
 
