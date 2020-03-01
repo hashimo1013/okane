@@ -28,11 +28,11 @@
 
 ## Licence
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+[MIT](https://github.com/hashimo1013/okane/blob/master/LICENSE)
 
 ## Author
 
-[tcnksm](https://github.com/tcnksm)
+[hashimo](https://github.com/hashimo1013)
 
 
 
