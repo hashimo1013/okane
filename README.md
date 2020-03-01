@@ -1,6 +1,5 @@
+# Sum Pick
 ![DEMO](https://github.com/hashimo1013/okane/blob/media/app/assets/gif/demo.gif)
-
-<h2 align="center">Sum Pick</h2>
 
 # Overview
 支出を登録することができる
@@ -8,6 +7,8 @@
 支出を費目ごとに割合で把握することができる
 レシートを投稿することでレシートから合計金額だけを抜くことができる
 
+## 🌐 App URL
+### **https://hashimonookane1.herokuapp.com/**
 ## Description
 
 ## Demo
@@ -16,7 +17,7 @@
 
 ## Requirement
 
-## Usage
+## 💬 Usage
 
 ## Install
 
