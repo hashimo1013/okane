@@ -27,6 +27,11 @@
   
 5.topページでは今月の支出一覧と合計、費目別の割合の円グラフ、先月の合計金額が表示されます。  
 
+## バージョン
+
++ Ruby 2.5.1
++ Rails 5.2.4
+
 ## Licence
 
 [MIT](https://github.com/hashimo1013/okane/blob/master/LICENSE)
